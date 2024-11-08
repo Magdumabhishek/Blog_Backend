@@ -16,8 +16,9 @@ exports.postUser = async (req,res) => {
     try {
         const userExists = await User.findOne({email:req.body.email})
         if(userExists) return res.status(500).json({errors:true,message:"User already exits"})
+            const salt = await bcrypt.genSalt(10)
             
-            req.body.password = await bcrypt.hash(req.body.password,10)
+            req.body.password = await bcrypt.hash(req.body.password,salt)
 
             const data = await User.create(req.body)
             return res.json({errors:false,data:data})
