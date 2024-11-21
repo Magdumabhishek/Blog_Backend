@@ -1,4 +1,5 @@
 const {getUser,postUser,putUser,deleteUser,login} = require("../controller/userController")
+const auth = require("../middleware/auth")
 
 const Route = require("express").Router()
 
